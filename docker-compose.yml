@@ -1,7 +1,7 @@
 version: "3.4"
 services:
 
-  nuxt:
+  client:
     image: gerardojunior/tap.client.environment:stable
     build: client/.docker
     volumes:
@@ -23,7 +23,6 @@ services:
         target: /usr/share/src
     ports:
       - 1234:80
-      # - 9000:9000 # xdebug port
     links:
       - mariadb
     depends_on:
