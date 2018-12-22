@@ -1,9 +1,9 @@
 [submodule "client"]
 	path = client
 	url = https://github.com/gerardo-junior/asterismo.client
-    branch = develop
+        branch = develop
 
 [submodule "api"]
 	path = api
 	url = https://github.com/gerardo-junior/asterismo.api
-    branch = develop
+        branch = develop
