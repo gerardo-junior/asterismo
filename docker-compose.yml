@@ -1,0 +1,48 @@
+version: "3.4"
+services:
+
+  client:
+    image: gerardojunior/tap.client.environment:stable
+    build: client/.docker
+    volumes:
+      - type: bind
+        source: ./client
+        target: /usr/share/src
+    ports:
+      - 3000:3000
+    depends_on:
+      - api
+    command: start
+
+  api: 
+    image: gerardojunior/symfony.environment:stable
+    build: api/.docker
+    volumes:
+      - type: bind
+        source: ./api
+        target: /usr/share/src
+    ports:
+      - 1234:80
+    links:
+      - mariadb
+    depends_on:
+      - mariadb
+
+  mariadb:
+    image: mariadb:10.3.11
+    restart: on-failure
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=asterismo
+      - MYSQL_USER=asterismo
+      - MYSQL_PASSWORD=asterismo
+    volumes:
+      - type: volume
+        source: dbdata
+        target: /var/lib/mysql
+        volume:
+          nocopy: true
+
+volumes:
+  dbdata:
+    name: "asterismo-dbdata"
